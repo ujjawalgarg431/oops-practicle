@@ -1,0 +1,40 @@
+def check_prime(n):
+    for i in range(2, n):
+        if n % i == 0:
+            print(n, "is not prime")
+            break
+    else:
+        print(n, "is prime")
+
+
+def primes_till_n(n):
+    print("Primes till", n, ":")
+    for i in range(2, n+1):
+        for j in range(2, i):
+            if i % j == 0:
+                break
+        else:
+            print(i, end=" ")
+    print()
+
+
+def first_n_primes(n):
+    print("First", n, "primes:")
+    count = 0
+    num = 2
+    while count < n:
+        for j in range(2, num):
+            if num % j == 0:
+                break
+        else:
+            print(num, end=" ")
+            count += 1
+        num += 1
+    print()
+
+
+# Main Program
+n = int(input("Enter n: "))
+check_prime(n)
+primes_till_n(n)
+first_n_primes(n)
