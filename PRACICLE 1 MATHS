@@ -1,0 +1,82 @@
+# ----------- Class Definition -----------
+class Set:
+    def __init__(self, elements):
+        # Store unique elements only
+        self.elements = list(set(elements))
+
+    # 1. Check if an element belongs to the set
+    def is_member(self, item):
+        return item in self.elements
+
+    # 2. Power set (all subsets)
+    def powerset(self):
+        result = [[]]  # Start with empty set
+        for elem in self.elements:
+            # Add current element to all existing subsets
+            new_subsets = [subset + [elem] for subset in result]
+            result += new_subsets
+        return result
+
+    # 3. Check if current set is subset of another set
+    def is_subset(self, other):
+        for elem in self.elements:
+            if elem not in other.elements:
+                return False
+        return True
+
+    # 4a. Union of two sets
+    def union(self, other):
+        return list(set(self.elements + other.elements))
+
+    # 4b. Intersection of two sets
+    def intersection(self, other):
+        return [elem for elem in self.elements if elem in other.elements]
+
+    # 5. Complement of the set (relative to universal set)
+    def complement(self, universal):
+        return [elem for elem in universal if elem not in self.elements]
+
+    # 6a. Difference (A - B)
+    def difference(self, other):
+        return [elem for elem in self.elements if elem not in other.elements]
+
+    # 6b. Symmetric difference
+    def symmetric_difference(self, other):
+        return list(set(self.elements) ^ set(other.elements))
+
+    # 7. Cartesian product
+    def cartesian_product(self, other):
+        return [(a, b) for a in self.elements for b in other.elements]
+
+# ----------- User Input Section -----------
+A = list(map(int, input("Enter elements of Set A: ").split()))
+B = list(map(int, input("Enter elements of Set B: ").split()))
+
+setA = Set(A)
+setB = Set(B)
+
+# ----------- Operations -----------
+# 1. Membership
+x = int(input("Enter element to check in Set A: "))
+print("Is member of Set A:", setA.is_member(x))
+
+# 2. Power set
+print("\nPower set of A:", setA.powerset())
+
+# 3. Subset
+print("Is A subset of B:", setA.is_subset(setB))
+
+# 4. Union and Intersection
+print("Union of A and B:", setA.union(setB))
+print("Intersection of A and B:", setA.intersection(setB))
+
+# 5. Complement
+U = list(map(int, input("\nEnter elements of Universal Set: ").split()))
+print("Complement of A:", setA.complement(U))
+
+# 6. Difference and Symmetric Difference
+print("A - B:", setA.difference(setB))
+print("Symmetric difference of A and B:", setA.symmetric_difference(setB))
+
+# 7. Cartesian Product
+print("Cartesian product of A and B:", setA.cartesian_product(setB))
